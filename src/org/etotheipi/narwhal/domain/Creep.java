@@ -7,11 +7,11 @@ import java.awt.Point;
  */
 public abstract class Creep {
 	//Constants
-	private int level;
-	private Point location;
-	private int maxHealth;
-	private int currentHealth;
-	private int speed;
+	protected int level;
+	protected Point location;
+	protected int maxHealth;
+	protected int currentHealth;
+	protected int speed;
 
 	public Creep(int level) {
 		this.level = level;
@@ -49,6 +49,6 @@ public abstract class Creep {
 	 * This will set up the Max Health and the speed
 	 * based on the level specific for each creep.
 	 */
-	public abstract void adjustByLevel();
+	protected abstract void adjustByLevel();
 
 }
