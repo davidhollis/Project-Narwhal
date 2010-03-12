@@ -40,6 +40,9 @@ public abstract class Tower {
 		this.range = range;
 	}
 	
+	/**
+	 * This method actually does the attack.
+	 */
 	public abstract void attack();
 	
 }

@@ -37,4 +37,5 @@ public class Player {
 		this.health = health;
 	}
 	
+	//methods
 }
