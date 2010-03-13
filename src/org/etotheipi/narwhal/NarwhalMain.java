@@ -26,7 +26,7 @@ public class NarwhalMain {
 				g.drawImage(Constants.SPLASH_SCREEN1_IMAGE.getImage(), 0, 0, this);
 			}
 		});
-		
+
 		splash1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
 				splash.setVisible(true);
@@ -46,26 +46,26 @@ public class NarwhalMain {
 		System.out.println("NARWHAL!");
 		splash.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				
+
 				final JFrame frame = new JFrame();
 				Queue<Creep> queue = new ArrayDeque<Creep>();
 				while (queue.size() < 5) {
 					queue.add(new Wrath());
 				}
 				frame.add(new TDWUPanel(new Board(queue)));
-				frame.setMinimumSize(new Dimension(800,600));
+				frame.setMinimumSize(new Dimension(900,550));
 				frame.setPreferredSize(frame.getMinimumSize());
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setLocation(splash.getLocation());
 				splash.setVisible(false);
 				frame.pack();
 				frame.setVisible(true);
-				
+
 			}
 		});
 		splash1.setPreferredSize(new Dimension(600, 450));
 		splash1.pack();
 		splash1.setVisible(true);
-		
+
 	}
 }

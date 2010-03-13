@@ -19,13 +19,13 @@ import org.etotheipi.narwhal.domain.creep.Pride;
 public class TDWUPanel extends JPanel {
 
 	private Board board;
-	
+
 	private Timer timer;
-	
+
 	JPanel scorePanel;
 	JLabel healthLabel;
 	JLabel moneyLabel;
-	
+
 	public TDWUPanel(final Board board) {
 		this.board = board;
 		Queue<Creep> queue = new ArrayDeque<Creep>();
@@ -33,7 +33,7 @@ public class TDWUPanel extends JPanel {
 			queue.add(new Pride());
 		}
 
-		this.setMinimumSize(new Dimension(800, 600));
+		this.setMinimumSize(new Dimension(900, 550));
 		this.setLayout(new BorderLayout());
 		GamePanel gp = new GamePanel(board);
 		this.add(gp, BorderLayout.WEST);
@@ -56,6 +56,6 @@ public class TDWUPanel extends JPanel {
 				repaint();
 			}
 		}).start();
-		
+
 	}
 }
