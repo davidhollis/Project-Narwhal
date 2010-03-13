@@ -8,13 +8,13 @@ import javax.swing.ImageIcon;
  */
 public class Constants {
 
-	public static final String HEART_TOWER = "HeartTower.png";
+	public static final String LOVE_TOWER = "HeartTower.png";
 	public static final String RAINBOW_TOWER = "RainbowTower.png";
 	public static final String WISH_TOWER = "WishTower.png";
 	public static final String UNICORN_TOWER = "UnicornTower.png";
 	public static final String SUNSHINE_TOWER = "SunshineTower.png";
 	
-	public static final ImageIcon HEART_TOWER_ICON = new ImageIcon(HEART_TOWER);
+	public static final ImageIcon LOVE_TOWER_ICON = new ImageIcon(LOVE_TOWER);
 	public static final ImageIcon RAINBOW_TOWER_ICON = new ImageIcon(RAINBOW_TOWER);
 	public static final ImageIcon WISH_TOWER_ICON = new ImageIcon(WISH_TOWER);
 	public static final ImageIcon UNICORN_TOWER_ICON = new ImageIcon(UNICORN_TOWER);
