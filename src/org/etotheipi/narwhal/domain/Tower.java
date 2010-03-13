@@ -28,6 +28,12 @@ public abstract class Tower {
 	}
 
 	//Getters and Setters.
+	public int getLevel() {
+		return level;
+	}
+	public boolean canUpgrade() {
+		return level < Constants.MAX_TOWER_LEVEL;
+	}
 	public int getRate() {
 		return rate;
 	}
@@ -86,6 +92,10 @@ public abstract class Tower {
 
 	public int getSellPrice() {
 		return getCost()/2;
+	}
+
+	public void upgrade() {
+		++ level; // UPGRADE COMPLETE!
 	}
 
 	/**
