@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.etotheipi.narwhal.Constants;
@@ -56,6 +57,11 @@ public class Board {
 		for(Creep creep : explodingCreeps){
 			thePlayer.hurt();
 			creepsOnBoard.remove(creep);
+		}
+		
+		if(thePlayer.getHealth() <= 0){
+			JOptionPane.showMessageDialog(null, "Wrong sir, Wrong. You Lose! Good day sir!");
+			System.exit(0);
 		}
 
 		// Fire weapons
