@@ -85,6 +85,7 @@ public class SidePanel extends JPanel {
 				if (isNewTower) {
 					try {
 						board.placeTower(currentlySelectedTower, mouseLoc);
+						isNewTower = false;
 					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
