@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,7 +27,7 @@ import org.etotheipi.narwhal.domain.tower.WishTower;
 public class SidePanel extends JPanel {
 	
 	//Static Final Variables for File names for Icons
-	public static final String[] LIST_OF_ICON_PATHS =
+	public static final URL[] LIST_OF_ICON_PATHS =
 		{Constants.LOVE_TOWER, Constants.RAINBOW_TOWER, Constants.WISH_TOWER, 
 		 Constants.UNICORN_TOWER, Constants.SUNSHINE_TOWER};
 	
@@ -62,7 +63,7 @@ public class SidePanel extends JPanel {
 	 * assuming no tower is selected.
 	 */
 	public SidePanel() {
-		this.setMinimumSize(new Dimension(100, 400));
+		this.setMinimumSize(new Dimension(200, 400));
 		this.setPreferredSize(this.getMinimumSize());
 		this.setLayout(new GridLayout(2,1));
 		topPanel = setUpTopPanel();
@@ -83,9 +84,9 @@ public class SidePanel extends JPanel {
 	private JPanel setUpTopPanel() {
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
-		top.setMinimumSize(new Dimension(100,200));
+		top.setMinimumSize(new Dimension(200,200));
 		top.setPreferredSize(top.getMinimumSize());
-		for (String filepath : LIST_OF_ICON_PATHS) {
+		for (URL filepath : LIST_OF_ICON_PATHS) {
 			ImageIcon icon = new ImageIcon(filepath);
 			JButton button = new JButton();
 			button.setIcon(icon);
@@ -107,7 +108,7 @@ public class SidePanel extends JPanel {
 	 */
 	private JPanel setUpBottomPanel() {
 		JPanel bot = new JPanel();
-		bot.setMinimumSize(new Dimension(100,200));
+		bot.setMinimumSize(new Dimension(200,200));
 		bot.setPreferredSize(bot.getMinimumSize());
 		if (currentlySelectedTower == null) {
 			return bot;
@@ -121,7 +122,12 @@ public class SidePanel extends JPanel {
 		bot.add(rofPanel());
 		bot.add(rangePanel());
 		JButton upgradeButton = new JButton();
-		upgradeButton.setText("Upgrade ($" + currentlySelectedTower.getUpgradeCost() + ")");
+		if (currentlySelectedTower.getUpgradeCost() < 0) {
+			upgradeButton.setText("Upgrade (MAXED OUT)");
+			upgradeButton.setEnabled(false);
+		} else {
+			upgradeButton.setText("Upgrade ($" + currentlySelectedTower.getUpgradeCost() + ")");
+		}
 		bot.add(upgradeButton);
 		JButton sellButton = new JButton();
 		sellButton.setText("Sell ($" + currentlySelectedTower.getSellPrice() + ")");
@@ -232,7 +238,6 @@ public class SidePanel extends JPanel {
 	
 	public void updatePanel(final Tower selectedTower) {
 		currentlySelectedTower = selectedTower;
-		System.out.println("YEAH");
 		this.remove(botPanel);
 		setBotPanel(setUpBottomPanel());
 		this.add(botPanel);
@@ -247,9 +252,8 @@ public class SidePanel extends JPanel {
 		while (tower.canUpgrade()) {
 			tower.upgrade();			
 		}
-		System.out.println(tower.getLevel());
 		side.updatePanel(tower);
-		frame.setPreferredSize(new Dimension(100,400));
+		frame.setPreferredSize(new Dimension(200,400));
 		frame.add(side);
 		frame.setVisible(true);
 		frame.pack();
