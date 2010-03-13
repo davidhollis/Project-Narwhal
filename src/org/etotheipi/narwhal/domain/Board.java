@@ -18,6 +18,7 @@ public class Board {
 	private Direction[][] policy;
 	private Player thePlayer;
 
+
 	public Board(Queue<Creep> pending) {
 		this.creepsPending = pending;
 		this.creepsOnBoard = new ArrayList<Creep>();
@@ -29,6 +30,10 @@ public class Board {
 
 	public Direction[][] getPolicy() {
 		return this.policy;
+	}
+
+	public Player getThePlayer() {
+		return thePlayer;
 	}
 
 	public void update() {
