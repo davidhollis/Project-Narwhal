@@ -1,5 +1,6 @@
 package org.etotheipi.narwhal.domain;
 
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -7,6 +8,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.etotheipi.narwhal.Constants;
 import org.etotheipi.narwhal.domain.tower.LoveTower;
@@ -316,4 +320,9 @@ public class Board {
 		if (p.x > 0) return new Point(p.x - 1,p.y);
 		else return null;
 	}
+
+	public Player getThePlayer() {
+		return thePlayer;
+	}
+	
 }

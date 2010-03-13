@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
 					return;
 				}
 				fuckingBoard.update();
-				repaint();
+				
 			}
 		}).start();
 	}

@@ -86,11 +86,18 @@ public class SidePanel extends JPanel {
 					try {
 						board.placeTower(currentlySelectedTower, mouseLoc);
 						isNewTower = false;
+						setSize(getPreferredSize());
+						repaint();
 					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 				} else {
 					currentlySelectedTower = board.getTowerAt(mouseLoc);
+					remove(botPanel);
+					setBotPanel(setUpBottomPanel());
+					add(botPanel);
+					setSize(getPreferredSize());
+					repaint();
 				}
 				
 			}
@@ -149,7 +156,8 @@ public class SidePanel extends JPanel {
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
 			isNewTower = true;
-			
+			setSize(getPreferredSize());
+			repaint();
 		}
 	}
 	
@@ -162,7 +170,8 @@ public class SidePanel extends JPanel {
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
 			isNewTower = true;
-			
+			setSize(getPreferredSize());
+			repaint();
 		}
 	}
 	
@@ -175,7 +184,8 @@ public class SidePanel extends JPanel {
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
 			isNewTower = true;
-			
+			setSize(getPreferredSize());
+			repaint();
 		}
 	}
 	
@@ -188,7 +198,8 @@ public class SidePanel extends JPanel {
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
 			isNewTower = true;
-			
+			setSize(getPreferredSize());
+			repaint();	
 		}
 	}
 	
@@ -201,7 +212,8 @@ public class SidePanel extends JPanel {
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
 			isNewTower = true;
-			
+			repaint();	
+			setSize(getPreferredSize());
 		}
 	}
 
