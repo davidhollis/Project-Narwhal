@@ -113,7 +113,7 @@ public class Board {
 			throw new Exception("Outta Cash");
 		}
 		if (!this.getCreepsAt(location).isEmpty()) {
-			throw new Exception("Cannot build on top of creeps.")
+			throw new Exception("Cannot build on top of creeps.");
 		}
 
 		// Check paths
