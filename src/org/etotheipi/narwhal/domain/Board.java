@@ -16,11 +16,15 @@ public class Board {
 	private List<Creep> creepsOnBoard;
 	private Queue<Creep> creepsPending;
 	private Direction[][] policy;
+	private Player thePlayer;
 
 	public Board(Queue<Creep> pending) {
 		this.creepsPending = pending;
 		this.creepsOnBoard = new ArrayList<Creep>();
 		this.policy = shortestPaths();
+		thePlayer = new Player();
+		thePlayer.setMoney(50);
+		thePlayer.setHealth(5);
 	}
 
 	public Direction[][] getPolicy() {
@@ -29,8 +33,20 @@ public class Board {
 
 	public void update() {
 		// Move the creeps
+		ArrayList<Creep> explodingCreeps = new ArrayList<Creep>();
 		for (Creep creep : creepsOnBoard) {
+			try{
 			creep.move(this);
+			}
+			catch(NullPointerException ex)
+			{
+					explodingCreeps.add(creep);
+			}	
+		}
+		
+		for(Creep creep : explodingCreeps){
+			thePlayer.hurt();
+			creepsOnBoard.remove(creep);
 		}
 
 		// Fire weapons
@@ -38,8 +54,22 @@ public class Board {
 			for (Tower tower : lst) {
 				if (tower != null) {
 					tower.attack(this);
+					ArrayList<Bullet> deadBullets = new ArrayList<Bullet>();
 					for (Bullet b: tower.bullets) {
-						b.updateBullet();
+						if(b.updateBullet()){
+							Creep target = b.getTarget();
+							target.dealDamage(tower.getPower());
+							deadBullets.add(b);
+							if(target.getCurrentHealth() == 0){
+								thePlayer.addMoney(target.getValue());
+								creepsOnBoard.remove(target);
+							}
+						}
+					}
+					//Clear out dead bullets.
+					for(Bullet b:deadBullets)
+					{
+						tower.bullets.remove(b);
 					}
 				}
 			}
@@ -78,6 +108,10 @@ public class Board {
 		}
 		if (spaces[location.x][location.y] != null) {
 			throw new Exception("Cannot place tower on an occupied space.");
+		}
+		if(!thePlayer.spendMoney(t.getCost()))
+		{
+			throw new Exception("Outta Cash");
 		}
 
 		// Check paths

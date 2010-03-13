@@ -36,6 +36,35 @@ public class Player {
 	public void setHealth(int health) {
 		this.health = health;
 	}
+	/**
+	 * Returns true if there's enough monies.
+	 * @param moneyToSpend
+	 * @return true if there's enough monies
+	 */
+	public boolean spendMoney(int moneyToSpend)
+	{
+		if(money - moneyToSpend >= 0)
+		{
+			money -= moneyToSpend;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public void addMoney(int moMoney)
+	{
+		money += moMoney;
+	}
+	
+	//True if you're dead
+	public boolean hurt()
+	{
+		health--;
+		return health <= 0;
+	}
 	
 	//methods
 }

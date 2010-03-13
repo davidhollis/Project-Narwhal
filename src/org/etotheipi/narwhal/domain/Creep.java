@@ -15,12 +15,14 @@ public abstract class Creep {
 	protected int maxHealth;
 	protected int currentHealth;
 	protected int speed;
+	protected int value;
 
 	protected Direction movementDirection = Direction.NORTH;
 
 	public Creep(int level) {
 		this.level = level;
 		this.adjustByLevel();
+		value = level * 10;
 	}
 
 	public Creep() {
@@ -28,6 +30,10 @@ public abstract class Creep {
 	}
 
 	//Getters and Setters
+	public void dealDamage(int damage)
+	{
+		currentHealth = Math.max(currentHealth - damage, 0);
+	}
 	public int getCurrentHealth() {
 		return currentHealth;
 	}
@@ -83,6 +89,10 @@ public abstract class Creep {
 				this.location.x = Math.min(15*Constants.SQUARE_SIZE - Constants.CREEP_SIZE/2, this.location.x + this.speed);
 				break;
 		}
+	}
+
+	public int getValue() {
+		return value;
 	}
 
 
