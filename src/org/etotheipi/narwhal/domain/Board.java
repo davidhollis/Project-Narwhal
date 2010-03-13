@@ -3,27 +3,30 @@ package org.etotheipi.narwhal.domain;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 import org.etotheipi.narwhal.Constants;
+import org.etotheipi.narwhal.domain.tower.LoveTower;
 
 public class Board {
 	private Tower[][] spaces = new Tower[15][10];
 	private List<Creep> creepsOnBoard;
 	private Queue<Creep> creepsPending;
-	private List<Point> bestPath;
+	private Direction[][] policy;
 
 	public Board(Queue<Creep> pending) {
 		this.creepsPending = pending;
 		this.creepsOnBoard = new ArrayList<Creep>();
-		this.bestPath = new ArrayList<Point>();
+		this.policy = shortestPaths();
 	}
 
 	public void update() {
 		// Move the creeps
 		for (Creep creep : creepsOnBoard) {
-			creep.moveAlong(bestPath);
+			creep.move(policy);
 		}
 
 		// Fire weapons
@@ -40,6 +43,45 @@ public class Board {
 				newCreep.setLocation(this.getCenterOf(new Point(0,0)));
 				creepsOnBoard.add(newCreep);
 			}
+		}
+	}
+
+	public boolean canPlaceTower(Point location) {
+		if (location.equals(new Point(0,0)) || location.equals(new Point(14,9))) {
+			return false; // can't place tower at creep start or end position
+		}
+		if (spaces[location.x][location.y] != null) {
+			return false; // can't place over an existing tower
+		}
+
+		// Check paths
+		Tower t = new LoveTower();
+		spaces[location.x][location.y] = t;
+		boolean canPlace = (shortestPaths()[0][0] != null);
+		spaces[location.x][location.y] = null;
+
+		return canPlace;
+	}
+
+	public void placeTower(Tower t, Point location) throws Exception {
+		if (location.equals(new Point(0,0)) || location.equals(new Point(14,9))) {
+			throw new Exception("Cannot place tower in upper left or lower right corners.");
+		}
+		if (spaces[location.x][location.y] != null) {
+			throw new Exception("Cannot place tower on an occupied space.");
+		}
+
+		// Check paths
+		spaces[location.x][location.y] = t;
+		Direction[][] policy = shortestPaths();
+
+		if (policy[0][0] == null) {
+			// blocking; can't place tower there
+			spaces[location.x][location.y] = null;
+			throw new Exception("Cannot block all paths to the exit.");
+		} else {
+			// works; set the new policy
+			this.policy = policy;
 		}
 	}
 
@@ -93,6 +135,94 @@ public class Board {
 				location.y * Constants.SQUARE_SIZE + (Constants.SQUARE_SIZE / 2));
 	}
 
-	// TODO write pathfinding
-	// TODO check whether a tower can be placed
+	protected Direction[][] shortestPaths() {
+		Direction[][] policy  = new Direction[15][10];
+		boolean[][] graph     = new boolean[15][10];
+		boolean[][] visited   = new boolean[15][10];
+		final int[][] lengths = new int[15][10];
+
+		for (int i = 0; i < this.spaces.length; ++i) {
+			for (int j = 0; j < this.spaces[i].length; ++j) {
+				policy[i][j]  = null;
+				graph[i][j]   = (this.spaces[i][j] == null);
+				visited[i][j] = false;
+				lengths[i][j] = 4200; // +infinity
+			}
+		}
+
+		PriorityQueue<Point> djkHeap = new PriorityQueue<Point>(75, new Comparator<Point>() {
+			@Override
+			public int compare(Point a, Point b) {
+				return lengths[a.x][a.y] - lengths[b.x][b.y];
+			}
+		});
+
+		lengths[14][9] = 0;
+
+		for (int i = 0; i < this.spaces.length; ++i) {
+			for (int j = 0; j < this.spaces[i].length; ++j) {
+				if (graph[i][j]) {
+					djkHeap.add(new Point(i,j));
+				}
+			}
+		}
+
+		while (!djkHeap.isEmpty()) {
+			Point current = djkHeap.remove();
+			if (visited[current.x][current.y] || !graph[current.x][current.y]) {
+				continue;
+			}
+
+			if (lengths[current.x][current.y] >= 4200) {
+				break;
+			}
+
+			Point[] children = new Point[] { north(current), south(current), east(current), west(current) };
+			for (int i = 0; i < children.length; ++i) {
+				Point child = children[i];
+				if (child != null && !visited[child.x][child.y] && graph[child.x][child.y]) {
+					// unvisited child
+					int dist = lengths[current.x][current.y] + 1;
+					if (dist < lengths[child.x][child.y]) {
+						lengths[child.x][child.y] = dist;
+						if        (i == 0) {
+							// north child
+							policy[child.x][child.y] = Direction.SOUTH;
+						} else if (i == 1) {
+							// south child
+							policy[child.x][child.y] = Direction.NORTH;
+						} else if (i == 2) {
+							// east child
+							policy[child.x][child.y] = Direction.WEST;
+						} else if (i == 3) {
+							// west child
+							policy[child.x][child.y] = Direction.EAST;
+						}
+					}
+				}
+			}
+		}
+
+		return policy;
+	}
+
+	private Point north(Point p) {
+		if (p.y < 9) return new Point(p.x,p.y + 1);
+		else return null;
+	}
+
+	private Point south(Point p) {
+		if (p.y > 0) return new Point(p.x,p.y - 1);
+		else return null;
+	}
+
+	private Point east(Point p) {
+		if (p.x < 14) return new Point(p.x + 1,p.y);
+		else return null;
+	}
+
+	private Point west(Point p) {
+		if (p.x > 0) return new Point(p.x - 1,p.y);
+		else return null;
+	}
 }
