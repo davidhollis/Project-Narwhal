@@ -66,6 +66,7 @@ public abstract class Creep {
 				Constants.CREEP_SIZE,
 				Constants.CREEP_SIZE))) {
 			// Creep is entirely inside the current box
+			board.printPolicy();
 			this.movementDirection = board.getPolicy()[space.x][space.y];
 		}
 

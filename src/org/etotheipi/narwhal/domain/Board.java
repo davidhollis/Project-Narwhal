@@ -36,7 +36,9 @@ public class Board {
 		// Fire weapons
 		for (Tower[] lst : spaces) {
 			for (Tower tower : lst) {
-				tower.attack(this);
+				if (tower != null) {
+					tower.attack(this);
+				}
 			}
 		}
 
@@ -110,6 +112,28 @@ public class Board {
 			}
 		}
 		return new ArrayList<Creep>();
+	}
+	
+	public void printPolicy() {
+		for (int j = 0; j < this.policy[0].length; ++j) {
+			for (int i = 0; i < this.policy.length; ++i) {
+				if (this.policy[i][j] == null) {
+					System.out.print("x");
+				} else {
+					switch (this.policy[i][j]) {
+						case NORTH:
+							System.out.print("^"); break;
+						case SOUTH:
+							System.out.print("v"); break;
+						case EAST:
+							System.out.print(">"); break;
+						case WEST:
+							System.out.print("<"); break;
+					}
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	public Point getSquareFor(Point location) {
@@ -221,13 +245,25 @@ public class Board {
 		return policy;
 	}
 
+	public Queue<Creep> getCreepsPending() {
+		return creepsPending;
+	}
+
+	public void setCreepsPending(Queue<Creep> creepsPending) {
+		this.creepsPending = creepsPending;
+	}
+
+	public List<Creep> getCreepsOnBoard() {
+		return creepsOnBoard;
+	}
+
 	private Point north(Point p) {
-		if (p.y < 9) return new Point(p.x,p.y - 1);
+		if (p.y > 0) return new Point(p.x,p.y - 1);
 		else return null;
 	}
 
 	private Point south(Point p) {
-		if (p.y > 0) return new Point(p.x,p.y + 1);
+		if (p.y < 9) return new Point(p.x,p.y + 1);
 		else return null;
 	}
 
