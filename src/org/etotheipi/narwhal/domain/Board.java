@@ -113,7 +113,7 @@ public class Board {
 		}
 		return new ArrayList<Creep>();
 	}
-	
+
 	public void printPolicy() {
 		for (int j = 0; j < this.policy[0].length; ++j) {
 			for (int i = 0; i < this.policy.length; ++i) {
@@ -237,6 +237,8 @@ public class Board {
 							// west child
 							policy[child.x][child.y] = Direction.EAST;
 						}
+						djkHeap.remove(child);
+						djkHeap.add(child);
 					}
 				}
 			}

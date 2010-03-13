@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
 	//constants
 	private Point offset = new Point(0,0);
 	private Board board;
-	
+
 	public GamePanel(final Board fuckingBoard) {
 		this.board = fuckingBoard;
 		this.setMinimumSize(new Dimension(600,400));
@@ -38,10 +38,11 @@ public class GamePanel extends JPanel {
 					return;
 				}
 				fuckingBoard.update();
+				repaint();
 			}
 		}).start();
 	}
-	
+
 	private ImageIcon getTowerIcon(Tower tower) {
 		ImageIcon myIcon = null;
 		if (tower instanceof RainbowTower) {
@@ -59,8 +60,8 @@ public class GamePanel extends JPanel {
 		}
 		return myIcon;
 	}
-	
-	
+
+
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -78,12 +79,12 @@ public class GamePanel extends JPanel {
 		}
 		for (Creep cr : board.getCreepsOnBoard()) {
 			ImageIcon icon = Constants.getCreepIcon(cr);
-			g.drawImage(icon.getImage(), cr.getLocation().x - Constants.CREEP_SIZE/2, 
+			g.drawImage(icon.getImage(), cr.getLocation().x - Constants.CREEP_SIZE/2,
 					cr.getLocation().y - Constants.CREEP_SIZE/2, this);
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 }
