@@ -41,9 +41,9 @@ public class Board {
 			catch(NullPointerException ex)
 			{
 					explodingCreeps.add(creep);
-			}	
+			}
 		}
-		
+
 		for(Creep creep : explodingCreeps){
 			thePlayer.hurt();
 			creepsOnBoard.remove(creep);
@@ -109,9 +109,11 @@ public class Board {
 		if (spaces[location.x][location.y] != null) {
 			throw new Exception("Cannot place tower on an occupied space.");
 		}
-		if(!thePlayer.spendMoney(t.getCost()))
-		{
+		if (!thePlayer.spendMoney(t.getCost())) {
 			throw new Exception("Outta Cash");
+		}
+		if (!this.getCreepsAt(location).isEmpty()) {
+			throw new Exception("Cannot build on top of creeps.")
 		}
 
 		// Check paths
