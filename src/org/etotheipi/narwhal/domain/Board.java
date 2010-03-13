@@ -38,8 +38,21 @@ public class Board {
 			for (Tower tower : lst) {
 				if (tower != null) {
 					tower.attack(this);
+					ArrayList<Bullet> deadBullets = new ArrayList<Bullet>();
 					for (Bullet b: tower.bullets) {
-						b.updateBullet();
+						if(b.updateBullet()){
+							Creep target = b.getTarget();
+							target.dealDamage(tower.getPower());
+							deadBullets.add(b);
+							if(target.getCurrentHealth() == 0){
+								creepsOnBoard.remove(target);
+							}
+						}
+					}
+					//Clear out dead bullets.
+					for(Bullet b:deadBullets)
+					{
+						tower.bullets.remove(b);
 					}
 				}
 			}

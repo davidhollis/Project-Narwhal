@@ -28,6 +28,10 @@ public abstract class Creep {
 	}
 
 	//Getters and Setters
+	public void dealDamage(int damage)
+	{
+		currentHealth = Math.max(currentHealth - damage, 0);
+	}
 	public int getCurrentHealth() {
 		return currentHealth;
 	}

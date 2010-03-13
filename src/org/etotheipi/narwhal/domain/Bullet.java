@@ -13,7 +13,6 @@ public abstract class Bullet {
 	private final int targetLeeway = 5;
 	private Creep target;
 	private Point location;
-
 	private final int speed = 5;
 	protected ImageIcon bulletPic;
 
@@ -59,4 +58,11 @@ public abstract class Bullet {
 	public Point getLocation() {
 		return location;
 	}
+	
+	public Creep getTarget()
+	{
+		return target;
+	}
+	
+	
 }
