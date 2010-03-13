@@ -51,8 +51,8 @@ public class TDWUPanel extends JPanel {
 					return;
 				}
 				board.update();
-				healthLabel.setText("Health: " + board.getThePlayer().getHealth());
-				moneyLabel.setText("Money: " + board.getThePlayer().getMoney());
+				healthLabel.setText("Happiness: " + board.getThePlayer().getHealth());
+				moneyLabel.setText("Sparkles: " + board.getThePlayer().getMoney());
 				repaint();
 			}
 		}).start();

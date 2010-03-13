@@ -86,18 +86,18 @@ public class SidePanel extends JPanel {
 					try {
 						board.placeTower(currentlySelectedTower, mouseLoc);
 						isNewTower = false;
-						setSize(getPreferredSize());
-						repaint();
+//						setSize(getPreferredSize());
+//						repaint();
 					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 				} else {
 					currentlySelectedTower = board.getTowerAt(mouseLoc);
-					remove(botPanel);
-					setBotPanel(setUpBottomPanel());
-					add(botPanel);
-					setSize(getPreferredSize());
-					repaint();
+//					remove(botPanel);
+//					setBotPanel(setUpBottomPanel());
+//					add(botPanel);
+//					setSize(getPreferredSize());
+//					repaint();
 				}
 				
 			}
@@ -166,12 +166,12 @@ public class SidePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			final Tower tower = new LoveTower();
 			currentlySelectedTower = tower;
-			remove(botPanel);
-			setBotPanel(setUpBottomPanel());
-			add(botPanel);
 			isNewTower = true;
-			setSize(getPreferredSize());
-			repaint();
+//			remove(botPanel);
+//			setBotPanel(setUpBottomPanel());
+//			add(botPanel);
+//			setSize(getPreferredSize());
+//			repaint();
 		}
 	}
 	
@@ -180,12 +180,12 @@ public class SidePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			final Tower tower = new SunshineTower();
 			currentlySelectedTower = tower;
-			remove(botPanel);
-			setBotPanel(setUpBottomPanel());
-			add(botPanel);
 			isNewTower = true;
-			setSize(getPreferredSize());
-			repaint();
+//			remove(botPanel);
+//			setBotPanel(setUpBottomPanel());
+//			add(botPanel);
+//			setSize(getPreferredSize());
+//			repaint();
 		}
 	}
 	
@@ -194,12 +194,12 @@ public class SidePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			final Tower tower = new WishTower();
 			currentlySelectedTower = tower;
-			remove(botPanel);
-			setBotPanel(setUpBottomPanel());
-			add(botPanel);
 			isNewTower = true;
-			setSize(getPreferredSize());
-			repaint();	
+//			remove(botPanel);
+//			setBotPanel(setUpBottomPanel());
+//			add(botPanel);
+//			setSize(getPreferredSize());
+//			repaint();	
 		}
 	}
 	
@@ -208,12 +208,12 @@ public class SidePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			final Tower tower = new UnicornTower();
 			currentlySelectedTower = tower;
-			remove(botPanel);
-			setBotPanel(setUpBottomPanel());
-			add(botPanel);
 			isNewTower = true;
-			repaint();	
-			setSize(getPreferredSize());
+//			remove(botPanel);
+//			setBotPanel(setUpBottomPanel());
+//			add(botPanel);
+//			repaint();	
+//			setSize(getPreferredSize());
 		}
 	}
 
@@ -364,9 +364,5 @@ public class SidePanel extends JPanel {
 		this.add(botPanel);
 		this.repaint();
 	}
-
-	//TEST CODE
-
-
 
 }
