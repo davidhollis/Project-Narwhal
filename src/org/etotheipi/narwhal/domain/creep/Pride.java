@@ -8,7 +8,7 @@ public class Pride extends Creep {
 		this.maxHealth = 100 + 75 * this.level;
 		this.currentHealth = this.maxHealth;
 
-		this.speed = 20;
+		this.speed = 2;
 	}
 
 }

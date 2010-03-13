@@ -8,6 +8,6 @@ public class Sloth extends Creep {
 		this.maxHealth = 200 * this.level;
 		this.currentHealth = this.maxHealth;
 
-		this.speed = 15;
+		this.speed = 1;
 	}
 }

@@ -31,10 +31,9 @@ public class GamePanel extends JPanel {
 		this.setMinimumSize(new Dimension(600,400));
 		this.setMaximumSize(this.getMinimumSize());
 		this.setPreferredSize(this.getMinimumSize());
-		new Timer(250,new ActionListener() {
+		new Timer(50,new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (fuckingBoard == null) {
-					System.out.println("AJKLSADHJKLSAD");
 					return;
 				}
 				fuckingBoard.update();
