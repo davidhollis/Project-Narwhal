@@ -1,10 +1,14 @@
 package org.etotheipi.narwhal.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -25,6 +29,7 @@ public class GamePanel extends JPanel {
 	//constants
 	private Point offset = new Point(0,0);
 	private Board board;
+	private Point cursor = null;
 
 	public GamePanel(final Board fuckingBoard) {
 		this.board = fuckingBoard;
@@ -40,6 +45,11 @@ public class GamePanel extends JPanel {
 				repaint();
 			}
 		}).start();
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+			public void mouseMoved(MouseEvent me) {
+				cursor = fuckingBoard.getSquareFor(me.getPoint());
+			}
+		});
 	}
 
 	private ImageIcon getTowerIcon(Tower tower) {
@@ -66,6 +76,12 @@ public class GamePanel extends JPanel {
 		super.paintComponent(g);
 		g.drawImage(Constants.GAME_BACKGROUND_IMAGE.getImage(), 0, 0, this);
 		if (this.board == null) return;
+		if (this.cursor != null) {
+			Color oldColor = g.getColor();
+			g.setColor(Color.RED);
+			((Graphics2D)g).draw(this.board.getBoundsOf(this.cursor));
+			g.setColor(oldColor);
+		}
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 10; j++) {
 				Tower tow = board.getTowerAt(new Point(i,j));
