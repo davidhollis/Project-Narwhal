@@ -8,6 +8,6 @@ public class Wrath extends Creep {
 		this.maxHealth     = 100*this.level;
 		this.currentHealth = this.maxHealth;
 
-		this.speed = 20;
+		this.speed = 1;
 	}
 }

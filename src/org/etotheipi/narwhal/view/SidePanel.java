@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -13,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.etotheipi.narwhal.Constants;
+import org.etotheipi.narwhal.domain.Board;
 import org.etotheipi.narwhal.domain.Tower;
 import org.etotheipi.narwhal.domain.tower.LoveTower;
 import org.etotheipi.narwhal.domain.tower.RainbowTower;
@@ -34,7 +40,8 @@ public class SidePanel extends JPanel {
 	//Constants
 	private Tower currentlySelectedTower;
 	private String towerName;
-	
+	private Board board;
+	private GamePanel gamePanel;
 	private JPanel topPanel;
 	private JPanel botPanel;
 	
@@ -62,7 +69,9 @@ public class SidePanel extends JPanel {
 	 * Constructor.  Sets up the top and bottom panels 
 	 * assuming no tower is selected.
 	 */
-	public SidePanel() {
+	public SidePanel(final Board board, final GamePanel gamePanel) {
+		this.board = board;
+		this.gamePanel = gamePanel;
 		this.setMinimumSize(new Dimension(200, 400));
 		this.setPreferredSize(this.getMinimumSize());
 		this.setLayout(new GridLayout(2,1));
@@ -90,10 +99,44 @@ public class SidePanel extends JPanel {
 			ImageIcon icon = new ImageIcon(filepath);
 			JButton button = new JButton();
 			button.setIcon(icon);
+			button.addActionListener(new BuildButtonListener(new LoveTower()));
 			//TODO Set up the actions once the board Panel is made.
 			top.add(button);
+			
 		}
 		return top;
+	}
+	
+	private class BuildButtonListener implements ActionListener {
+		private Tower tower;
+		public BuildButtonListener(final Tower tower) {
+			this.tower = tower;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			currentlySelectedTower = tower;
+			remove(botPanel);
+			setBotPanel(setUpBottomPanel());
+			add(botPanel);
+			gamePanel.addMouseListener(new MouseAdapter() {
+				
+				public void mouseClicked(final MouseEvent e) {
+					Point boardLoc = board.getSquareFor(new Point(e.getX(), e.getY()));
+					try {
+						board.placeTower(tower, boardLoc);
+						gamePanel.repaint();
+					} catch (Exception e1) {
+						System.out.println(e1.getMessage());
+						return;
+					}
+					
+					
+				}
+			});
+			
+		}
+		
+		
 	}
 	
 	/**
@@ -245,19 +288,7 @@ public class SidePanel extends JPanel {
 	}
 
 	//TEST CODE
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		SidePanel side = new SidePanel();
-		Tower tower = new RainbowTower();
-		while (tower.canUpgrade()) {
-			tower.upgrade();			
-		}
-		side.updatePanel(tower);
-		frame.setPreferredSize(new Dimension(200,400));
-		frame.add(side);
-		frame.setVisible(true);
-		frame.pack();
-	}
+	
 	
 	
 }
