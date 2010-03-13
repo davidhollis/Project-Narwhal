@@ -81,7 +81,7 @@ public class SidePanel extends JPanel {
 		this.add(botPanel);
 		this.gamePanel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				Point mouseLoc = board.getSquareFor(me.getPoint());
+				Point mouseLoc = board.getSquareFor(invtransform(me.getPoint()));
 				if (isNewTower) {
 					try {
 						board.placeTower(currentlySelectedTower, mouseLoc);
@@ -99,9 +99,15 @@ public class SidePanel extends JPanel {
 //					setSize(getPreferredSize());
 //					repaint();
 				}
-				
+
 			}
 		});
+	}
+
+	private Point invtransform(Point p) {
+		return new Point(
+				p.x - GamePanel.offset.x,
+				p.y - GamePanel.offset.y);
 	}
 
 
@@ -118,35 +124,35 @@ public class SidePanel extends JPanel {
 		top.setLayout(new FlowLayout());
 		top.setMinimumSize(new Dimension(200,200));
 		top.setPreferredSize(top.getMinimumSize());
-		
+
 		JButton lovebutton = new JButton();
 		lovebutton.setIcon(Constants.LOVE_TOWER_ICON);
 		lovebutton.addActionListener(new LoveButtonListener());
 		top.add(lovebutton);
-		
+
 		JButton rainbowbutton = new JButton();
 		rainbowbutton.setIcon(Constants.RAINBOW_TOWER_ICON);
 		rainbowbutton.addActionListener(new RainbowButtonListener());
 		top.add(rainbowbutton);
-		
+
 		JButton sunbutton = new JButton();
 		sunbutton.setIcon(Constants.SUNSHINE_TOWER_ICON);
 		sunbutton.addActionListener(new SunButtonListener());
 		top.add(sunbutton);
-		
+
 		JButton unicornbutton = new JButton();
 		unicornbutton.setIcon(Constants.UNICORN_TOWER_ICON);
 		unicornbutton.addActionListener(new UnicornButtonListener());
 		top.add(unicornbutton);
-		
+
 		JButton wishbutton = new JButton();
 		wishbutton.setIcon(Constants.WISH_TOWER_ICON);
 		wishbutton.addActionListener(new WishButtonListener());
 		top.add(wishbutton);
-		
+
 		return top;
 	}
-	
+
 	private class RainbowButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -160,7 +166,7 @@ public class SidePanel extends JPanel {
 			repaint();
 		}
 	}
-	
+
 	private class LoveButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -174,7 +180,7 @@ public class SidePanel extends JPanel {
 //			repaint();
 		}
 	}
-	
+
 	private class SunButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -188,7 +194,7 @@ public class SidePanel extends JPanel {
 //			repaint();
 		}
 	}
-	
+
 	private class WishButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -199,10 +205,10 @@ public class SidePanel extends JPanel {
 //			setBotPanel(setUpBottomPanel());
 //			add(botPanel);
 //			setSize(getPreferredSize());
-//			repaint();	
+//			repaint();
 		}
 	}
-	
+
 	private class UnicornButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -212,7 +218,7 @@ public class SidePanel extends JPanel {
 //			remove(botPanel);
 //			setBotPanel(setUpBottomPanel());
 //			add(botPanel);
-//			repaint();	
+//			repaint();
 //			setSize(getPreferredSize());
 		}
 	}
