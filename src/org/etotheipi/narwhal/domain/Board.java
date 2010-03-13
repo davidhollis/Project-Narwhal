@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.etotheipi.narwhal.Constants;
+import org.etotheipi.narwhal.domain.creep.*;
 import org.etotheipi.narwhal.domain.tower.LoveTower;
 
 public class Board {
@@ -57,8 +58,9 @@ public class Board {
 		for(Creep creep : explodingCreeps){
 			thePlayer.hurt();
 			creepsOnBoard.remove(creep);
+			this.addAFewMore(creep);
 		}
-		
+
 		if(thePlayer.getHealth() <= 0){
 			JOptionPane.showMessageDialog(null, "Wrong sir, Wrong. You Lose! Good day sir!");
 			System.exit(0);
@@ -78,6 +80,7 @@ public class Board {
 							if(target.getCurrentHealth() == 0){
 								thePlayer.addMoney(target.getValue());
 								creepsOnBoard.remove(target);
+								this.addAStrongerOne(target);
 							}
 						}
 					}
@@ -332,6 +335,30 @@ public class Board {
 	private Point west(Point p) {
 		if (p.x > 0) return new Point(p.x - 1,p.y);
 		else return null;
+	}
+
+	private void addAStrongerOne(final Creep dead) {
+		int level = dead.getLevel() + 1;
+		Creep newOne;
+		if      (dead instanceof Wrath) { newOne = new Wrath(); }
+		else if (dead instanceof Sloth) { newOne = new Sloth(); }
+		else if (dead instanceof Pride) { newOne = new Pride(); }
+		else						    { newOne = new Lust(); }
+		newOne.setLevel(level);
+		this.creepsPending.add(newOne);
+	}
+
+	private void addAFewMore(final Creep dead) {
+		int level = dead.getLevel();
+		for (int i = 0; i < 3; ++i) {
+			Creep newOne;
+			if      (dead instanceof Wrath) { newOne = new Wrath(); }
+			else if (dead instanceof Sloth) { newOne = new Sloth(); }
+			else if (dead instanceof Pride) { newOne = new Pride(); }
+			else						    { newOne = new Lust(); }
+			newOne.setLevel(level);
+			this.creepsPending.add(newOne);
+		}
 	}
 
 }
