@@ -4,6 +4,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -15,10 +19,44 @@ import org.etotheipi.narwhal.domain.Creep;
 import org.etotheipi.narwhal.domain.creep.Wrath;
 import org.etotheipi.narwhal.view.TDWUPanel;
 
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
+
 public class NarwhalMain {
 	public static void main(String[] args) {
+		
+		try {
+			final AudioStream audioStream = new AudioStream(
+					new FileInputStream(
+							NarwhalMain.class.getResource(
+							"sound/UnicornLoop.wav").getFile()));
+			final AudioPlayer player = AudioPlayer.player;
+			Thread th;
+			th = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						player.start(audioStream);
+					} catch (Exception e) {
+						
+					}
+				}
+			});
+			th.start();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		final JFrame splash = new JFrame();
 		final JFrame splash1 = new JFrame();
+		splash1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		splash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		splash1.setResizable(false);
 		splash1.add(new JPanel() {
 			public void paintComponent(Graphics g) {
