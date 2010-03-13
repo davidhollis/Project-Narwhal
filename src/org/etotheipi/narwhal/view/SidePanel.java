@@ -13,7 +13,6 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -39,6 +38,7 @@ public class SidePanel extends JPanel {
 
 	//Constants
 	private Tower currentlySelectedTower;
+	private boolean isNewTower;
 	private String towerName;
 	private Board board;
 	private GamePanel gamePanel;
@@ -79,6 +79,21 @@ public class SidePanel extends JPanel {
 		botPanel = setUpBottomPanel();
 		this.add(topPanel);
 		this.add(botPanel);
+		this.gamePanel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				Point mouseLoc = board.getSquareFor(me.getPoint());
+				if (isNewTower) {
+					try {
+						board.placeTower(currentlySelectedTower, mouseLoc);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				} else {
+					currentlySelectedTower = board.getTowerAt(mouseLoc);
+				}
+				
+			}
+		});
 	}
 
 
@@ -95,48 +110,98 @@ public class SidePanel extends JPanel {
 		top.setLayout(new FlowLayout());
 		top.setMinimumSize(new Dimension(200,200));
 		top.setPreferredSize(top.getMinimumSize());
-		for (URL filepath : LIST_OF_ICON_PATHS) {
-			ImageIcon icon = new ImageIcon(filepath);
-			JButton button = new JButton();
-			button.setIcon(icon);
-			button.addActionListener(new BuildButtonListener(new UnicornTower()));
-			//TODO Set up the actions once the board Panel is made.
-			top.add(button);
-
-		}
+		
+		JButton lovebutton = new JButton();
+		lovebutton.setIcon(Constants.LOVE_TOWER_ICON);
+		lovebutton.addActionListener(new LoveButtonListener());
+		top.add(lovebutton);
+		
+		JButton rainbowbutton = new JButton();
+		rainbowbutton.setIcon(Constants.RAINBOW_TOWER_ICON);
+		rainbowbutton.addActionListener(new RainbowButtonListener());
+		top.add(rainbowbutton);
+		
+		JButton sunbutton = new JButton();
+		sunbutton.setIcon(Constants.SUNSHINE_TOWER_ICON);
+		sunbutton.addActionListener(new SunButtonListener());
+		top.add(sunbutton);
+		
+		JButton unicornbutton = new JButton();
+		unicornbutton.setIcon(Constants.UNICORN_TOWER_ICON);
+		unicornbutton.addActionListener(new UnicornButtonListener());
+		top.add(unicornbutton);
+		
+		JButton wishbutton = new JButton();
+		wishbutton.setIcon(Constants.WISH_TOWER_ICON);
+		wishbutton.addActionListener(new WishButtonListener());
+		top.add(wishbutton);
+		
 		return top;
 	}
-
-	private class BuildButtonListener implements ActionListener {
-		private Tower tower;
-		public BuildButtonListener(final Tower tower) {
-			this.tower = tower;
-		}
+	
+	private class RainbowButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			final Tower tower = new RainbowTower();
 			currentlySelectedTower = tower;
 			remove(botPanel);
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
-			gamePanel.addMouseListener(new MouseAdapter() {
-
-				public void mouseClicked(final MouseEvent e) {
-					Point boardLoc = board.getSquareFor(new Point(e.getX(), e.getY()));
-					try {
-						board.placeTower(tower, boardLoc);
-						gamePanel.repaint();
-					} catch (Exception e1) {
-						System.out.println(e1.getMessage());
-						return;
-					}
-
-
-				}
-			});
-
+			isNewTower = true;
+			
 		}
-
-
+	}
+	
+	private class LoveButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final Tower tower = new LoveTower();
+			currentlySelectedTower = tower;
+			remove(botPanel);
+			setBotPanel(setUpBottomPanel());
+			add(botPanel);
+			isNewTower = true;
+			
+		}
+	}
+	
+	private class SunButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final Tower tower = new SunshineTower();
+			currentlySelectedTower = tower;
+			remove(botPanel);
+			setBotPanel(setUpBottomPanel());
+			add(botPanel);
+			isNewTower = true;
+			
+		}
+	}
+	
+	private class WishButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final Tower tower = new WishTower();
+			currentlySelectedTower = tower;
+			remove(botPanel);
+			setBotPanel(setUpBottomPanel());
+			add(botPanel);
+			isNewTower = true;
+			
+		}
+	}
+	
+	private class UnicornButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final Tower tower = new UnicornTower();
+			currentlySelectedTower = tower;
+			remove(botPanel);
+			setBotPanel(setUpBottomPanel());
+			add(botPanel);
+			isNewTower = true;
+			
+		}
 	}
 
 	/**
