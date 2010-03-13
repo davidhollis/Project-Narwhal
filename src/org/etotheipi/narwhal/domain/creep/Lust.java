@@ -8,6 +8,6 @@ public class Lust extends Creep {
 		this.maxHealth     = 50 * this.level;
 		this.currentHealth = this.maxHealth;
 
-		this.speed = 25 + 5 * this.level;
+		this.speed = 3;
 	}
 }

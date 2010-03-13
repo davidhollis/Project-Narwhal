@@ -43,7 +43,7 @@ public class Board {
 		}
 
 		// Spawn new creep
-		if (this.getCreepsAt(new Point(0,0)).isEmpty()) {
+		if (this.getCreepsNear(new Point(0,0),1).isEmpty()) {
 			if (!creepsPending.isEmpty()) {
 				Creep newCreep = creepsPending.remove();
 				newCreep.setLocation(this.getCenterOf(new Point(0,0)));
@@ -86,8 +86,9 @@ public class Board {
 			spaces[location.x][location.y] = null;
 			throw new Exception("Cannot block all paths to the exit.");
 		} else {
-			// works; set the new policy
+			// works; set the new policy and the tower location
 			this.policy = policy;
+			t.setLocation(this.getCenterOf(location));
 		}
 	}
 
