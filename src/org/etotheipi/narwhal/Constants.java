@@ -25,4 +25,6 @@ public class Constants {
 	public static final ImageIcon GAME_BACKGROUND_IMAGE = new ImageIcon(GAME_BACKGROUND);
 
 	public static final int MAX_TOWER_LEVEL = 5;
+
+	public static final int SQUARE_SIZE = 40; // pixels
 }

@@ -111,5 +111,5 @@ public abstract class Tower {
 	/**
 	 * This method actually does the attack.
 	 */
-	public abstract void attack();
+	public abstract void attack(Board b);
 }
