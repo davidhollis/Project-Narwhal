@@ -1,14 +1,11 @@
 package org.etotheipi.narwhal.domain.tower;
 
+import org.etotheipi.narwhal.domain.Board;
 import org.etotheipi.narwhal.domain.Tower;
 
 public class RainbowTower extends Tower {
 
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	protected int[][] getStats() {
 		return new int[][] {
@@ -17,6 +14,12 @@ public class RainbowTower extends Tower {
 				{0,  0,  0,  0,  0},   // Rate of Fire
 				{30, 40, 50, 60, 150}  // Cost
 		};
+	}
+
+	@Override
+	public void attack(Board b) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
