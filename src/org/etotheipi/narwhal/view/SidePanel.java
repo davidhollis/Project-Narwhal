@@ -1,5 +1,6 @@
 package org.etotheipi.narwhal.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -106,10 +107,15 @@ public class SidePanel extends JPanel {
 	 */
 	private JPanel setUpBottomPanel() {
 		JPanel bot = new JPanel();
+		bot.setMinimumSize(new Dimension(100,200));
+		bot.setPreferredSize(bot.getMinimumSize());
+		if (currentlySelectedTower == null) {
+			return bot;
+		}
 		bot.setLayout(new GridLayout(8,1));
 		JLabel towerIcon = getMyTowerIcon(currentlySelectedTower);
 		bot.add(towerIcon);
-		bot.add(new JLabel("Name: " + towerName));
+		bot.add(new JLabel(towerName));
 		bot.add(levelPanel());
 		bot.add(damagePanel());
 		bot.add(rofPanel());
@@ -121,7 +127,7 @@ public class SidePanel extends JPanel {
 		sellButton.setText("Sell ($" + currentlySelectedTower.getSellPrice() + ")");
 		bot.add(sellButton);
 		
-		return currentlySelectedTower == null ? new JPanel() : bot;
+		return bot;
 	}
 	
 	/**
@@ -131,11 +137,12 @@ public class SidePanel extends JPanel {
 	private JPanel levelPanel() {
 		JPanel levelPanel = new JPanel();
 		levelPanel.setLayout(new GridLayout(1,2));
-		levelPanel.add(new JLabel("Current Level: "
+		levelPanel.add(new JLabel("Lvl: "
 				+ currentlySelectedTower.getLevel()));
-		levelPanel.add(new JLabel("Next Level: " + 
-				currentlySelectedTower.getLevel() < 5 
-				? currentlySelectedTower.getLevel() + 1 : "MAXED"));
+		JLabel secondLabel = new JLabel((currentlySelectedTower.canUpgrade() 
+				? Integer.toString(currentlySelectedTower.getLevel() + 1) : "MAXED"));
+		secondLabel.setForeground(Color.red);
+		levelPanel.add(secondLabel);
 		return levelPanel;
 	}
 	
@@ -147,11 +154,12 @@ public class SidePanel extends JPanel {
 		JPanel damagePanel = new JPanel();
 		int currentLevel = currentlySelectedTower.getLevel();
 		damagePanel.setLayout(new GridLayout(1,2));
-		damagePanel.add(new JLabel("Current Damage: "
+		damagePanel.add(new JLabel("Dmg: "
 				+ currentlySelectedTower.getPower()));
-		damagePanel.add(new JLabel("Next Level: " + 
-				(currentLevel < 5 ? currentlySelectedTower.getPower(currentLevel + 1) 
-						: "MAXED")));
+		JLabel secondLabel = new JLabel((currentlySelectedTower.canUpgrade()
+				? Integer.toString(currentlySelectedTower.getPower(currentLevel + 1)) : "MAXED"));
+		secondLabel.setForeground(Color.red);
+		damagePanel.add(secondLabel);
 		return damagePanel;
 	}
 	
@@ -163,11 +171,12 @@ public class SidePanel extends JPanel {
 		JPanel rofPanel = new JPanel();
 		int currentLevel = currentlySelectedTower.getLevel();
 		rofPanel.setLayout(new GridLayout(1,2));
-		rofPanel.add(new JLabel("Current Rate of Fire: "
+		rofPanel.add(new JLabel("R.O.F.: "
 				+ currentlySelectedTower.getRate()));
-		rofPanel.add(new JLabel("Next Level: " + 
-				(currentLevel < 5 ? currentlySelectedTower.getRate(currentLevel + 1) 
-						: "MAXED")));
+		JLabel secondLabel = new JLabel((currentlySelectedTower.canUpgrade()
+				? Integer.toString(currentlySelectedTower.getRate(currentLevel + 1)) : "MAXED"));
+		secondLabel.setForeground(Color.red);
+		rofPanel.add(secondLabel);
 		return rofPanel;
 	}
 	
@@ -179,11 +188,12 @@ public class SidePanel extends JPanel {
 		JPanel rangePanel = new JPanel();
 		int currentLevel = currentlySelectedTower.getLevel();
 		rangePanel.setLayout(new GridLayout(1,2));
-		rangePanel.add(new JLabel("Current Damage: "
+		rangePanel.add(new JLabel("Range: "
 				+ currentlySelectedTower.getRange()));
-		rangePanel.add(new JLabel("Next Level: " + 
-				(currentLevel < 5 ? currentlySelectedTower.getRange(currentLevel + 1) 
-						: "MAXED")));
+		JLabel secondLabel = new JLabel((currentlySelectedTower.canUpgrade()
+				? Integer.toString(currentlySelectedTower.getRange(currentLevel + 1)) : "MAXED"));
+		secondLabel.setForeground(Color.red);
+		rangePanel.add(secondLabel);
 		return rangePanel;
 	}
 
@@ -222,14 +232,25 @@ public class SidePanel extends JPanel {
 	
 	public void updatePanel(final Tower selectedTower) {
 		currentlySelectedTower = selectedTower;
+		System.out.println("YEAH");
+		this.remove(botPanel);
 		setBotPanel(setUpBottomPanel());
+		this.add(botPanel);
+		this.repaint();
 	}
 
 	//TEST CODE
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
+		SidePanel side = new SidePanel();
+		Tower tower = new RainbowTower();
+		while (tower.canUpgrade()) {
+			tower.upgrade();			
+		}
+		System.out.println(tower.getLevel());
+		side.updatePanel(tower);
 		frame.setPreferredSize(new Dimension(100,400));
-		frame.add(new SidePanel());
+		frame.add(side);
 		frame.setVisible(true);
 		frame.pack();
 	}
