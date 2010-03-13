@@ -23,10 +23,14 @@ public class Board {
 		this.policy = shortestPaths();
 	}
 
+	public Direction[][] getPolicy() {
+		return this.policy;
+	}
+
 	public void update() {
 		// Move the creeps
 		for (Creep creep : creepsOnBoard) {
-			creep.move(policy);
+			creep.move(this);
 		}
 
 		// Fire weapons
@@ -92,6 +96,11 @@ public class Board {
 		return spaces[location.x][location.y];
 	}
 
+	public void destroyTowerAt(Point location) {
+		this.spaces[location.x][location.y] = null;
+		this.policy = this.shortestPaths();
+	}
+
 	public List<Creep> getCreepsAt(Point location) {
 		ArrayList<Creep> creeps = new ArrayList<Creep>();
 		Rectangle bounds = this.getBoundsOf(location);
@@ -101,6 +110,12 @@ public class Board {
 			}
 		}
 		return new ArrayList<Creep>();
+	}
+
+	public Point getSquareFor(Point location) {
+		return new Point(
+				(location.x - (location.x % Constants.SQUARE_SIZE))/Constants.SQUARE_SIZE,
+				(location.y - (location.y % Constants.SQUARE_SIZE))/Constants.SQUARE_SIZE);
 	}
 
 	public List<Creep> getCreepsNear(Point location, int radius) {
@@ -121,7 +136,7 @@ public class Board {
 		return creeps;
 	}
 
-	protected Rectangle getBoundsOf(Point location) {
+	public Rectangle getBoundsOf(Point location) {
 		return new Rectangle(
 				location.x * Constants.SQUARE_SIZE,
 				location.y * Constants.SQUARE_SIZE,
@@ -129,7 +144,7 @@ public class Board {
 				Constants.SQUARE_SIZE);
 	}
 
-	protected Point getCenterOf(Point location) {
+	public Point getCenterOf(Point location) {
 		return new Point(
 				location.x * Constants.SQUARE_SIZE + (Constants.SQUARE_SIZE / 2),
 				location.y * Constants.SQUARE_SIZE + (Constants.SQUARE_SIZE / 2));
@@ -207,12 +222,12 @@ public class Board {
 	}
 
 	private Point north(Point p) {
-		if (p.y < 9) return new Point(p.x,p.y + 1);
+		if (p.y < 9) return new Point(p.x,p.y - 1);
 		else return null;
 	}
 
 	private Point south(Point p) {
-		if (p.y > 0) return new Point(p.x,p.y - 1);
+		if (p.y > 0) return new Point(p.x,p.y + 1);
 		else return null;
 	}
 

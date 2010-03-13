@@ -1,7 +1,9 @@
 package org.etotheipi.narwhal.domain;
 
 import java.awt.Point;
-import java.util.List;
+import java.awt.Rectangle;
+
+import org.etotheipi.narwhal.Constants;
 
 /**
  * Basic Absract Class for the creeps.
@@ -13,6 +15,8 @@ public abstract class Creep {
 	protected int maxHealth;
 	protected int currentHealth;
 	protected int speed;
+
+	protected Direction movementDirection = Direction.NORTH;
 
 	public Creep(int level) {
 		this.level = level;
@@ -52,11 +56,35 @@ public abstract class Creep {
 	 */
 	protected abstract void adjustByLevel();
 
-	public void moveAlong(List<Point> bestPath) {
-		// TODO Auto-generated method stub
-		
+	public void move(Board board) {
+		Point space = board.getSquareFor(location);
+		Rectangle bounds = board.getBoundsOf(space);
+
+		if (bounds.contains(new Rectangle(
+				location.x - Constants.CREEP_SIZE/2,
+				location.y - Constants.CREEP_SIZE/2,
+				Constants.CREEP_SIZE,
+				Constants.CREEP_SIZE))) {
+			// Creep is entirely inside the current box
+			this.movementDirection = board.getPolicy()[space.x][space.y];
+		}
+
+		switch (this.movementDirection) {
+			case NORTH:
+				this.location.y = Math.max(Constants.CREEP_SIZE/2, this.location.y - this.speed);
+				break;
+			case SOUTH:
+				this.location.y = Math.min(10*Constants.SQUARE_SIZE - Constants.CREEP_SIZE/2, this.location.y + this.speed);
+				break;
+			case WEST:
+				this.location.x = Math.max(Constants.CREEP_SIZE/2, this.location.x - this.speed);
+				break;
+			case EAST:
+				this.location.x = Math.min(15*Constants.SQUARE_SIZE - Constants.CREEP_SIZE/2, this.location.x + this.speed);
+				break;
+		}
 	}
-	
-	
+
+
 
 }

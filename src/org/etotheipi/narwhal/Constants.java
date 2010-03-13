@@ -27,4 +27,6 @@ public class Constants {
 	public static final int MAX_TOWER_LEVEL = 5;
 
 	public static final int SQUARE_SIZE = 40; // pixels
+
+	public static final int CREEP_SIZE = 20; // pixels
 }
