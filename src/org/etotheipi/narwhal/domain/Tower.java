@@ -95,7 +95,11 @@ public abstract class Tower {
 	}
 
 	public void upgrade() {
-		++ level; // UPGRADE COMPLETE!
+		++ level;
+		this.rate = this.getRate(this.level);
+		this.power = this.getPower(this.level);
+		this.range = this.getRange(this.level);
+		// UPGRADE COMPLETE!
 	}
 
 	/**
