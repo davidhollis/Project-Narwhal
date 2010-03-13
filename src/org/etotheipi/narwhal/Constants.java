@@ -1,5 +1,7 @@
 package org.etotheipi.narwhal;
 
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -8,11 +10,11 @@ import javax.swing.ImageIcon;
  */
 public class Constants {
 
-	public static final String LOVE_TOWER = "art/HeartTower.png";
-	public static final String RAINBOW_TOWER = "art/RainbowTower.png";
-	public static final String WISH_TOWER = "art/WishTower.png";
-	public static final String UNICORN_TOWER = "art/UnicornTower.png";
-	public static final String SUNSHINE_TOWER = "art/SunshineTower.png";
+	public static final URL LOVE_TOWER = NarwhalMain.class.getResource("art/HeartTower.png");
+	public static final URL RAINBOW_TOWER = NarwhalMain.class.getResource("art/RainbowTower.png");
+	public static final URL WISH_TOWER = NarwhalMain.class.getResource("art/StarTower.png");
+	public static final URL UNICORN_TOWER = NarwhalMain.class.getResource("art/UnicornTower.png");
+	public static final URL SUNSHINE_TOWER = NarwhalMain.class.getResource("art/SunTower.png");
 
 	public static final ImageIcon LOVE_TOWER_ICON = new ImageIcon(LOVE_TOWER);
 	public static final ImageIcon RAINBOW_TOWER_ICON = new ImageIcon(RAINBOW_TOWER);
