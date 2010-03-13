@@ -22,6 +22,8 @@ public class Constants {
 	public static final URL UNICORN_TOWER = NarwhalMain.class.getResource("art/UnicornTower.png");
 	public static final URL SUNSHINE_TOWER = NarwhalMain.class.getResource("art/SunTower.png");
 	public static final URL GAME_BACKGROUND = NarwhalMain.class.getResource("art/GameBackground.png");
+	public static final URL SPLASH_SCREEN = NarwhalMain.class.getResource("art/SplashScreenSparkles.png");
+	public static final URL SPLASH_SCREEN1 = NarwhalMain.class.getResource("art/SplashScreenPlain.png");
 
 	public static final URL PRIDE = NarwhalMain.class.getResource("art/PrideDemon.png");
 	public static final URL WRATH = NarwhalMain.class.getResource("art/WrathDemon.png");
@@ -34,6 +36,8 @@ public class Constants {
 	public static final ImageIcon UNICORN_TOWER_ICON = new ImageIcon(UNICORN_TOWER);
 	public static final ImageIcon SUNSHINE_TOWER_ICON = new ImageIcon(SUNSHINE_TOWER);
 	public static final ImageIcon GAME_BACKGROUND_IMAGE = new ImageIcon(GAME_BACKGROUND);
+	public static final ImageIcon SPLASH_SCREEN_IMAGE = new ImageIcon(SPLASH_SCREEN);
+	public static final ImageIcon SPLASH_SCREEN1_IMAGE = new ImageIcon(SPLASH_SCREEN1);
 	
 	public static final ImageIcon PRIDE_ICON = new ImageIcon(PRIDE);
 	public static final ImageIcon WRATH_ICON = new ImageIcon(WRATH);

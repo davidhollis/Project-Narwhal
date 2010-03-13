@@ -328,8 +328,5 @@ public class Board {
 		else return null;
 	}
 
-	public Player getThePlayer() {
-		return thePlayer;
-	}
 	
 }
