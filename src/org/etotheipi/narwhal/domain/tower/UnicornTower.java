@@ -1,12 +1,19 @@
 package org.etotheipi.narwhal.domain.tower;
 
 import java.awt.Point;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
+import org.etotheipi.narwhal.NarwhalMain;
 import org.etotheipi.narwhal.domain.Board;
 import org.etotheipi.narwhal.domain.Creep;
 import org.etotheipi.narwhal.domain.Tower;
 import org.etotheipi.narwhal.domain.projectile.Unicorn;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class UnicornTower extends Tower {
 	protected int fireTime = 0;
@@ -31,6 +38,20 @@ public class UnicornTower extends Tower {
 				target = targets.get(0);
 				Unicorn h = new Unicorn(target,(Point)this.location.clone());
 				this.bullets.add(h);
+				try {
+					AudioStream audioStream = new AudioStream(
+							new FileInputStream(
+									NarwhalMain.class.getResource(
+									"sound/Horse.wav").getFile()));
+					final AudioPlayer player = AudioPlayer.player;
+					player.start(audioStream);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

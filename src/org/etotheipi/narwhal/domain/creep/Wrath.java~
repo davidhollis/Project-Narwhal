@@ -1,0 +1,17 @@
+package org.etotheipi.narwhal.domain.creep;
+
+import org.etotheipi.narwhal.domain.Creep;
+
+public class Wrath extends Creep {
+	// Wrath -- Normal Creep -- 100 hp/level, 1 speed
+	protected void adjustByLevel() {
+		this.maxHealth     = 100*this.level;
+		this.currentHealth = this.maxHealth;
+
+<<<<<<< HEAD
+		this.speed = 1;
+=======
+		this.speed = 2;
+>>>>>>> fb9f666510acf28a89bde795bb5742c013441697
+	}
+}

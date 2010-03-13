@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -17,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.etotheipi.narwhal.Constants;
+import org.etotheipi.narwhal.NarwhalMain;
 import org.etotheipi.narwhal.domain.Board;
 import org.etotheipi.narwhal.domain.Tower;
 import org.etotheipi.narwhal.domain.tower.LoveTower;
@@ -24,6 +28,9 @@ import org.etotheipi.narwhal.domain.tower.RainbowTower;
 import org.etotheipi.narwhal.domain.tower.SunshineTower;
 import org.etotheipi.narwhal.domain.tower.UnicornTower;
 import org.etotheipi.narwhal.domain.tower.WishTower;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * This will be the side bar for building the
@@ -85,6 +92,20 @@ public class SidePanel extends JPanel {
 				if (isNewTower) {
 					try {
 						board.placeTower(currentlySelectedTower, mouseLoc);
+						try {
+							AudioStream audioStream = new AudioStream(
+									new FileInputStream(
+											NarwhalMain.class.getResource(
+											"sound/TowerPlace.wav").getFile()));
+							final AudioPlayer player = AudioPlayer.player;
+							player.start(audioStream);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						isNewTower = false;
 //						setSize(getPreferredSize());
 //						repaint();
