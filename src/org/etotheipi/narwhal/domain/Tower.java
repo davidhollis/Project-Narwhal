@@ -12,6 +12,7 @@ public abstract class Tower {
 	private Point location;
 	private int range;
 	private Bullet bullet;
+	private int price;
 	
 	
 	//Getters and Setters.
@@ -38,6 +39,14 @@ public abstract class Tower {
 	}
 	public void setRange(int range) {
 		this.range = range;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+	
+	public int getSellValue(){
+		return (int) Math.ceil(price);
 	}
 	
 	/**

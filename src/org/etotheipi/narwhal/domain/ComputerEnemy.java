@@ -1,5 +1,7 @@
 package org.etotheipi.narwhal.domain;
 
+import org.etotheipi.narwhal.domain.creep.*;
+
 public class ComputerEnemy {
 	//constants
 	
@@ -12,7 +14,12 @@ public class ComputerEnemy {
 	 * @return The wave about to be sent out.
 	 */
 	public CreepWave getNextWave() {
-		return null;
+		//TODO something that doesn't return 10 normal creeps
+		CreepWave retWave = new CreepWave();
+		for(int i=0; i<10; i++) {
+			retWave.addCreep(new Wrath());
+		}
+		return retWave;
 	}
 	
 	
