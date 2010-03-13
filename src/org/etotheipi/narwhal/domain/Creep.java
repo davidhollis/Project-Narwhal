@@ -1,6 +1,7 @@
 package org.etotheipi.narwhal.domain;
 
 import java.awt.Point;
+import java.util.List;
 
 /**
  * Basic Absract Class for the creeps.
@@ -50,5 +51,12 @@ public abstract class Creep {
 	 * based on the level specific for each creep.
 	 */
 	protected abstract void adjustByLevel();
+
+	public void moveAlong(List<Point> bestPath) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }
