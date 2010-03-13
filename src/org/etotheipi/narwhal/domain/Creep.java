@@ -43,6 +43,11 @@ public abstract class Creep {
 	public int getLevel() {
 		return level;
 	}
+	public void setLevel(int newLevel) {
+		this.level = newLevel;
+		this.adjustByLevel();
+		value = level * 10;
+	}
 	public Point getLocation() {
 		return location;
 	}
