@@ -21,4 +21,6 @@ public class Constants {
 	public static final ImageIcon SUNSHINE_TOWER_ICON = new ImageIcon(SUNSHINE_TOWER);
 
 	public static final int MAX_TOWER_LEVEL = 5;
+
+	public static final int SQUARE_SIZE = 40; // pixels
 }
