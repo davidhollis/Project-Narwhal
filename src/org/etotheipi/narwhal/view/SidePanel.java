@@ -27,16 +27,16 @@ import org.etotheipi.narwhal.domain.tower.UnicornTower;
 import org.etotheipi.narwhal.domain.tower.WishTower;
 
 /**
- * This will be the side bar for building the 
+ * This will be the side bar for building the
  * new Towers and shows what is currently selected.
  */
 public class SidePanel extends JPanel {
-	
+
 	//Static Final Variables for File names for Icons
 	public static final URL[] LIST_OF_ICON_PATHS =
-		{Constants.LOVE_TOWER, Constants.RAINBOW_TOWER, Constants.WISH_TOWER, 
+		{Constants.LOVE_TOWER, Constants.RAINBOW_TOWER, Constants.WISH_TOWER,
 		 Constants.UNICORN_TOWER, Constants.SUNSHINE_TOWER};
-	
+
 	//Constants
 	private Tower currentlySelectedTower;
 	private String towerName;
@@ -44,7 +44,7 @@ public class SidePanel extends JPanel {
 	private GamePanel gamePanel;
 	private JPanel topPanel;
 	private JPanel botPanel;
-	
+
 	public JPanel getTopPanel() {
 		return topPanel;
 	}
@@ -64,9 +64,9 @@ public class SidePanel extends JPanel {
 		this.botPanel = botPanel;
 	}
 
-	
+
 	/**
-	 * Constructor.  Sets up the top and bottom panels 
+	 * Constructor.  Sets up the top and bottom panels
 	 * assuming no tower is selected.
 	 */
 	public SidePanel(final Board board, final GamePanel gamePanel) {
@@ -84,9 +84,9 @@ public class SidePanel extends JPanel {
 
 	/**
 	 * This will set up the top panel.  This will show
-	 * the build buttons, that only show the tower 
-	 * icons.  
-	 * 
+	 * the build buttons, that only show the tower
+	 * icons.
+	 *
 	 * TODO:  Need to set up build methods for button actions
 	 * @return JPanel for top of side panel.
 	 */
@@ -99,14 +99,14 @@ public class SidePanel extends JPanel {
 			ImageIcon icon = new ImageIcon(filepath);
 			JButton button = new JButton();
 			button.setIcon(icon);
-			button.addActionListener(new BuildButtonListener(new LoveTower()));
+			button.addActionListener(new BuildButtonListener(new UnicornTower()));
 			//TODO Set up the actions once the board Panel is made.
 			top.add(button);
-			
+
 		}
 		return top;
 	}
-	
+
 	private class BuildButtonListener implements ActionListener {
 		private Tower tower;
 		public BuildButtonListener(final Tower tower) {
@@ -119,7 +119,7 @@ public class SidePanel extends JPanel {
 			setBotPanel(setUpBottomPanel());
 			add(botPanel);
 			gamePanel.addMouseListener(new MouseAdapter() {
-				
+
 				public void mouseClicked(final MouseEvent e) {
 					Point boardLoc = board.getSquareFor(new Point(e.getX(), e.getY()));
 					try {
@@ -129,22 +129,22 @@ public class SidePanel extends JPanel {
 						System.out.println(e1.getMessage());
 						return;
 					}
-					
-					
+
+
 				}
 			});
-			
+
 		}
-		
-		
+
+
 	}
-	
+
 	/**
 	 * This sets up the bottom panel.  This shows the
 	 * icon of the currently selected tower, and all of
-	 * its information.  It also has the buttons for 
+	 * its information.  It also has the buttons for
 	 * upgrading and selling.
-	 * 
+	 *
 	 * TODO:  Update the tower class to handle upgrading
 	 * and deleting
 	 * @return new JPanel if nothing is selected, info panel if something is selected.
@@ -175,10 +175,10 @@ public class SidePanel extends JPanel {
 		JButton sellButton = new JButton();
 		sellButton.setText("Sell ($" + currentlySelectedTower.getSellPrice() + ")");
 		bot.add(sellButton);
-		
+
 		return bot;
 	}
-	
+
 	/**
 	 * Builds the level Panel, left being current, right being next level
 	 * @return a JPanel.
@@ -188,13 +188,13 @@ public class SidePanel extends JPanel {
 		levelPanel.setLayout(new GridLayout(1,2));
 		levelPanel.add(new JLabel("Lvl: "
 				+ currentlySelectedTower.getLevel()));
-		JLabel secondLabel = new JLabel((currentlySelectedTower.canUpgrade() 
+		JLabel secondLabel = new JLabel((currentlySelectedTower.canUpgrade()
 				? Integer.toString(currentlySelectedTower.getLevel() + 1) : "MAXED"));
 		secondLabel.setForeground(Color.red);
 		levelPanel.add(secondLabel);
 		return levelPanel;
 	}
-	
+
 	/**
 	 * Builds the damge Panel, left being current, right being next level
 	 * @return a JPanel.
@@ -211,7 +211,7 @@ public class SidePanel extends JPanel {
 		damagePanel.add(secondLabel);
 		return damagePanel;
 	}
-	
+
 	/**
 	 * Builds the rate of fire Panel, left being current, right being next level
 	 * @return a JPanel.
@@ -228,7 +228,7 @@ public class SidePanel extends JPanel {
 		rofPanel.add(secondLabel);
 		return rofPanel;
 	}
-	
+
 	/**
 	 * Builds the range Panel, left being current, right being next level
 	 * @return a JPanel.
@@ -272,13 +272,13 @@ public class SidePanel extends JPanel {
 		} else {
 			System.err.println("AHHH WHAT HAVE WE DONE");
 		}
-		
+
 		//Now return JPanel containing the icon
 		JLabel iconLabel = new JLabel();
 		iconLabel.setIcon(myIcon);
 		return iconLabel;
 	}
-	
+
 	public void updatePanel(final Tower selectedTower) {
 		currentlySelectedTower = selectedTower;
 		this.remove(botPanel);
@@ -288,7 +288,7 @@ public class SidePanel extends JPanel {
 	}
 
 	//TEST CODE
-	
-	
-	
+
+
+
 }

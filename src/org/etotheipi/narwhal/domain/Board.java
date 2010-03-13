@@ -38,6 +38,9 @@ public class Board {
 			for (Tower tower : lst) {
 				if (tower != null) {
 					tower.attack(this);
+					for (Bullet b: tower.bullets) {
+						b.updateBullet();
+					}
 				}
 			}
 		}

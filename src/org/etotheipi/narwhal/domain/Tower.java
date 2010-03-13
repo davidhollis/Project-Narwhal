@@ -1,6 +1,8 @@
 package org.etotheipi.narwhal.domain;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.etotheipi.narwhal.Constants;
 
@@ -15,12 +17,15 @@ public abstract class Tower {
 	protected int range;
 	protected int level;
 
+	protected List<Bullet> bullets;
+
 	public Tower(Point location) {
 		this.level = 1;
 		this.rate = this.getRate(this.level);
 		this.power = this.getPower(this.level);
 		this.range = this.getRange(this.level);
 		this.location = location;
+		this.bullets = new ArrayList<Bullet>();
 	}
 
 	public Tower() {
@@ -28,6 +33,9 @@ public abstract class Tower {
 	}
 
 	//Getters and Setters.
+	public List<Bullet> getBullets() {
+		return bullets;
+	}
 	public int getLevel() {
 		return level;
 	}

@@ -7,12 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import org.etotheipi.narwhal.Constants;
 import org.etotheipi.narwhal.domain.Board;
+import org.etotheipi.narwhal.domain.Bullet;
 import org.etotheipi.narwhal.domain.Creep;
 import org.etotheipi.narwhal.domain.Tower;
 import org.etotheipi.narwhal.domain.tower.LoveTower;
@@ -73,6 +73,9 @@ public class GamePanel extends JPanel {
 					ImageIcon icon = getTowerIcon(tow);
 					g.drawImage(icon.getImage(), tow.getLocation().x - Constants.SQUARE_SIZE/2,
 							tow.getLocation().y - Constants.SQUARE_SIZE/2, this);
+					for (Bullet b : tow.getBullets()) {
+						g.drawImage(b.getIcon().getImage(), b.getLocation().x, b.getLocation().y, this);
+					}
 				}
 			}
 		}
