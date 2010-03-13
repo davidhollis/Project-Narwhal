@@ -115,10 +115,10 @@ public class SidePanel extends JPanel {
 		bot.add(rofPanel());
 		bot.add(rangePanel());
 		JButton upgradeButton = new JButton();
-		upgradeButton.setText("Upgrade");
+		upgradeButton.setText("Upgrade ($" + currentlySelectedTower.getUpgradeCost() + ")");
 		bot.add(upgradeButton);
 		JButton sellButton = new JButton();
-		sellButton.setText("Sell");
+		sellButton.setText("Sell ($" + currentlySelectedTower.getSellPrice() + ")");
 		bot.add(sellButton);
 		
 		return currentlySelectedTower == null ? new JPanel() : bot;
