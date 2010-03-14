@@ -2,6 +2,7 @@ package org.etotheipi.narwhal.domain.projectile;
 
 import java.awt.Point;
 import java.net.URL;
+
 import javax.swing.ImageIcon;
 
 import org.etotheipi.narwhal.NarwhalMain;

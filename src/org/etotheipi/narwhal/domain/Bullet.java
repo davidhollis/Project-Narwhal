@@ -1,7 +1,7 @@
 package org.etotheipi.narwhal.domain;
 
 import java.awt.Point;
-import java.util.Vector;
+
 import javax.swing.ImageIcon;
 
 /**

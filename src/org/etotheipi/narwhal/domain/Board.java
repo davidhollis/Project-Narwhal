@@ -1,6 +1,5 @@
 package org.etotheipi.narwhal.domain;
 
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -9,12 +8,13 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import org.etotheipi.narwhal.Constants;
-import org.etotheipi.narwhal.domain.creep.*;
+import org.etotheipi.narwhal.domain.creep.Lust;
+import org.etotheipi.narwhal.domain.creep.Pride;
+import org.etotheipi.narwhal.domain.creep.Sloth;
+import org.etotheipi.narwhal.domain.creep.Wrath;
 import org.etotheipi.narwhal.domain.tower.LoveTower;
 
 public class Board {

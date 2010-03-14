@@ -40,9 +40,8 @@ public class UnicornTower extends Tower {
 				this.bullets.add(h);
 				try {
 					AudioStream audioStream = new AudioStream(
-							new FileInputStream(
-									NarwhalMain.class.getResource(
-									"sound/Horse.wav").getFile()));
+									NarwhalMain.class.getResourceAsStream(
+									"sound/Horse.wav"));
 					final AudioPlayer player = AudioPlayer.player;
 					player.start(audioStream);
 				} catch (FileNotFoundException e) {

@@ -1,6 +1,6 @@
 package org.etotheipi.narwhal.domain;
 
-import org.etotheipi.narwhal.domain.creep.*;
+import org.etotheipi.narwhal.domain.creep.Wrath;
 
 public class ComputerEnemy {
 	//constants

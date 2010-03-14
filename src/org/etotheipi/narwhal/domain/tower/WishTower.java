@@ -40,9 +40,8 @@ public class WishTower extends Tower {
 				AudioStream audioStream;
 				try {
 					audioStream = new AudioStream(
-							new FileInputStream(
-									NarwhalMain.class.getResource(
-									"sound/StarShoot.wav").getFile()));
+									NarwhalMain.class.getResourceAsStream(
+									"sound/StarShoot.wav"));
 					final AudioPlayer player = AudioPlayer.player;
 					player.start(audioStream);
 				} catch (FileNotFoundException e) {

@@ -94,9 +94,8 @@ public class SidePanel extends JPanel {
 						board.placeTower(currentlySelectedTower, mouseLoc);
 						try {
 							AudioStream audioStream = new AudioStream(
-									new FileInputStream(
-											NarwhalMain.class.getResource(
-											"sound/TowerPlace.wav").getFile()));
+											NarwhalMain.class.getResourceAsStream(
+											"sound/TowerPlace.wav"));
 							final AudioPlayer player = AudioPlayer.player;
 							player.start(audioStream);
 						} catch (FileNotFoundException e) {

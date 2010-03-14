@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,19 +18,16 @@ import org.etotheipi.narwhal.domain.Creep;
 import org.etotheipi.narwhal.domain.creep.Wrath;
 import org.etotheipi.narwhal.view.TDWUPanel;
 
-import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 
 public class NarwhalMain {
 	public static void main(String[] args) {
 		
 		try {
 			final AudioStream audioStream = new AudioStream(
-					new FileInputStream(
-							NarwhalMain.class.getResource(
-							"sound/UnicornLoop.wav").getFile()));
+							NarwhalMain.class.getResourceAsStream(
+							"sound/UnicornLoop.wav"));
 			final AudioPlayer player = AudioPlayer.player;
 			Thread th;
 			th = new Thread(new Runnable() {
